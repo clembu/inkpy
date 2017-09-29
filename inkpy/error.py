@@ -1,0 +1,2 @@
+class StoryError(Exception):
+    pass

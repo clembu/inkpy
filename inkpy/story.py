@@ -38,6 +38,14 @@ class Story:
     def vars(self):
         raise NotImplementedError
 
+    @property
+    def has_errors(self):
+        raise NotImplementedError
+
+    @property
+    def errors(self):
+        raise NotImplementedError
+
     # Methods
     def continue_(self, max_=False):
         raise NotImplementedError

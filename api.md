@@ -24,6 +24,15 @@ story --> current lines
 txt = s.text
 ```
 
+story --> has errors?
+```python
+s.has_errors
+```
+story --> errors
+```python
+ers = s.errors
+```
+
 story --> choices
 ```python
 chs = s.choices
