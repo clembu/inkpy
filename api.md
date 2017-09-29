@@ -15,7 +15,13 @@ if s.can_continue
 
 story --> next lines
 ```python
-txt = s.continue(max=False)
+txt = s.continue_(max=False)
+```
+can't call it `continue` because of python's
+
+story --> current lines
+```python
+txt = s.text
 ```
 
 story --> choices
