@@ -8,6 +8,9 @@ Unit testing shows that PythonNet will run under Mono, though the Mono runtime i
 so it's kinda unreliable.
 
 So here I go, diving into porting inkle's stuff to python.
-goal is that it works exactly the same, with the exact same API.
+Main goal was that it works exactly the same, with the exact same API.
 
-Here goes nothing.
+Turns out that's not *Pythonic*. I mean, Ink is a C# library with its load of overloads, `out` parameters, generic lists...
+So the exercise now it's to **make it a pythonic API**
+
+---
