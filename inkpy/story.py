@@ -77,3 +77,6 @@ class Story:
 
     def unbindfun(self, fname):
         raise NotImplementedError
+
+    def inklist(self, lname):
+        raise NotImplementedError

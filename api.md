@@ -129,7 +129,7 @@ l = s.inklist(name)
 
 list --| add/remove item(s)
 ```python
-l += item(s)
+l |= item(s)
 l -= item(s)
 ```
 list --> check if a name is present
@@ -144,10 +144,14 @@ list --> all possible values
 ```python
 l.all
 ```
+list --> inverse
+```python
+rl = ~l
+```
 list --| binary operations
 ```python
-l1 + l2 # Union
-l1 ^ l2 # Intersection
+l1 | l2 # Union
+l1 & l2 # Intersection
 l1 - l2 # Difference
 l1 in l2 # Contains
 l1 > l2 # Greater than
