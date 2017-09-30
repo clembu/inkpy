@@ -22,7 +22,7 @@ class Story:
 
     @property
     def choices(self):
-        raise NotImplementedError
+        return self.__s.choices
 
     @property
     def text(self):
@@ -34,7 +34,7 @@ class Story:
 
     @property
     def gtags(self):
-        raise NotImplementedError
+        return self.__s.gtags
 
     @property
     def vars(self):
@@ -50,16 +50,16 @@ class Story:
 
     # Methods
     def continue_(self, max_=False):
-        raise NotImplementedError
+        return self.__s.continue_(max_)
 
     def choose(self, idx):
-        raise NotImplementedError
+        self.__s.choose(idx)
 
     def goto(self, path):
-        raise NotImplementedError
+        self.__s.goto(path)
 
     def tagsat(self, path):
-        raise NotImplementedError
+        return self.__s.tagsat(path)
 
     def save(self, file_):
         raise NotImplementedError
@@ -68,25 +68,25 @@ class Story:
         raise NotImplementedError
 
     def reset(self):
-        raise NotImplementedError
+        self.__s.reset()
 
     def force_end(self):
-        raise NotImplementedError
+        self.__s.force_end()
 
     def visit_count(self, path):
         raise NotImplementedError
 
     def watch(self, var, f):
-        raise NotImplementedError
+        self.__s.watch(var, f)
 
     def unwatch(self, f):
-        raise NotImplementedError
+        self.__s.unwatch(f)
 
     def bindfun(self, fname, f):
-        raise NotImplementedError
+        self.__s.bindfun(fname, f)
 
     def unbindfun(self, fname):
-        raise NotImplementedError
+        self.__s.unbindfun(fname)
 
     def inklist(self, lname):
         raise NotImplementedError
