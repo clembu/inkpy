@@ -1,10 +1,12 @@
 from io import IOBase
+import inkpy._runtime as runtime
 
 
 class Story:
 
     # Constructor
     def __init__(self, file_):
+        self.__s = runtime.Story(None, None)
         if isinstance(file_, str):
             pass
             # create from file path
