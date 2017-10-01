@@ -1,8 +1,13 @@
+from inkpy._runtime.state import State
+
+
 class Story:
 
     # Constructor
     def __init__(self, root_container, lists):
-        raise NotImplementedError
+        self.__state = None
+
+        self.reset()
 
     # Properties
     @property
@@ -15,7 +20,7 @@ class Story:
 
     @property
     def state(self):
-        raise NotImplementedError
+        return self.__state
 
 # Methods
 
@@ -32,6 +37,7 @@ class Story:
         raise NotImplementedError
 
     def reset(self):
+        self.__state = State(self)
         raise NotImplementedError
 
     def force_end(self):
