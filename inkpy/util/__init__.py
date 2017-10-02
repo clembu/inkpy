@@ -1,1 +1,1 @@
-from event import Event
+from inkpy.util.event import Event
