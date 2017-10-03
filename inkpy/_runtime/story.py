@@ -1,7 +1,8 @@
 from inkpy._runtime.state import State
+from inkpy._runtime.object import Object
 
 
-class Story:
+class Story(Object):
 
     # Constructor
     def __init__(self, root_container, lists):
