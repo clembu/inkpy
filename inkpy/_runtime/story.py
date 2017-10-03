@@ -1,5 +1,6 @@
 from inkpy._runtime.state import State
 from inkpy._runtime.object import Object
+from inkpy._runtime.listdeforg import ListDefOrigin
 
 
 class Story(Object):
@@ -7,6 +8,7 @@ class Story(Object):
     # Constructor
     def __init__(self, root_container, lists):
         self.__state = None
+        self.__list_defs = None if lists is None else ListDefOrigin(lists)
 
         self.reset()
 
@@ -22,6 +24,10 @@ class Story(Object):
     @property
     def state(self):
         return self.__state
+
+    @property
+    def list_defs(self):
+        return self.__list_defs
 
 # Methods
 

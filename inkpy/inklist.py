@@ -1,73 +1,81 @@
+import inkpy._runtime as runtime
+
+
 class InkList:
 
     # Constructor
-    def __init__(self):
-        raise NotImplementedError
+    def __init__(self, *, l=runtime.InkList()):
+        if not isinstance(l, runtime.InkList): raise TypeError
+        self._l = l
 
     # Properties
     @property
     def min(self):
-        raise NotImplementedError
+        return self._l.min
 
     @property
     def max(self):
-        raise NotImplementedError
+        return self._l.max
 
     @property
     def all(self):
-        raise NotImplementedError
+        return self._l.all
 
     # Methods
     def copy(self):
-        raise NotImplementedError
+        l = InkList()
+        l._l = self._l.copy()
+        return l
 
     # Specials
     def __contains__(self, other):
-        raise NotImplementedError
+        return other in self._l
 
     def __hash__(self):
-        raise NotImplementedError
+        return hash(self._l)
 
     def __str__(self):
-        raise NotImplementedError
+        return str(self._l)
 
-    def __bool__(self):
-        raise NotImplementedError
+    def __len__(self):
+        return len(self._l)
 
     def __invert__(self):
-        raise NotImplementedError
+        return ~self._l
 
     # Comparisons
     def __lt__(self, other):
-        raise NotImplementedError
+        return self._l < other._l
 
     def __le__(self, other):
-        raise NotImplementedError
+        return self._l <= other._l
 
     def __eq__(self, other):
-        raise NotImplementedError
+        return self._l == other._l
 
     def __ne__(self, other):
-        raise NotImplementedError
+        return self._l != other._l
 
     def __gt__(self, other):
-        raise NotImplementedError
+        return self._l > other._l
 
     def __ge__(self, other):
-        raise NotImplementedError
+        return self._l >= other._l
 
     # Alterations
     def __or__(self, other):
-        raise NotImplementedError
+        return self._l | other._l
 
     def __and__(self, other):
-        raise NotImplementedError
+        return self._l & other._l
 
     def __sub__(self, other):
-        raise NotImplementedError
+        return self._l - other._l
 
     def __ior__(self, other):
-        raise NotImplementedError
+        if isinstance(other, InkList): other = other._l
+        self._l |= other._l
 
     def __isub__(self, other):
-        raise NotImplementedError
+        if isinstance(other, InkList): other = other._l
+        self._l -= other

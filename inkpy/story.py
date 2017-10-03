@@ -89,4 +89,4 @@ class Story:
         self.__s.unbindfun(fname)
 
     def inklist(self, lname):
-        raise NotImplementedError
+        return runtime.InkList.from_story(self.__s)
