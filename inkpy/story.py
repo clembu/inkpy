@@ -1,5 +1,6 @@
 from io import IOBase
 import inkpy._runtime as runtime
+from inkpy.choice import Choice
 
 
 class Story:
@@ -22,7 +23,7 @@ class Story:
 
     @property
     def choices(self):
-        return self.__s.choices
+        return [Choice(c=c) for c in self.__s.choices]
 
     @property
     def text(self):
