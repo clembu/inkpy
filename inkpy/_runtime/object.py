@@ -1,5 +1,6 @@
 from inkpy._runtime.path import Component, Path
 from inkpy._runtime.container import Container
+from inkpy.debug import DebugMetadata
 
 
 class Object:
@@ -8,8 +9,20 @@ class Object:
     def __init__(self):
         self.parent = None
         self._path = None
+        self.__dm = None
 
     # Properties
+    @property
+    def debug_metadata(self):
+        if self.__dm is None and self.parent:
+            return self.parent.debug_metadata
+        return self.__dm
+
+    @debug_metadata.setter
+    def debug_metadata(self, value):
+        if not isinstance(value, DebugMetadata): raise TypeError
+        self.__dm = value
+
     @property
     def rootContainer(self):
         ancestor = self
@@ -88,5 +101,20 @@ class Object:
 
         if len(rel_str) < len(glob_str): return rel_str
         else: return glob_str
+
+    def debug_line_number_of_path(self, path):
+        if self.path is None: return None
+
+        root = self.rootContainer
+        if root:
+            target = None
+            try:
+                target = root[path]
+            except:
+                pass
+            if target:
+                dm = target.debug_metadata
+                if dm: return dm.start_line_number
+        return None
 
     # Special Methods
