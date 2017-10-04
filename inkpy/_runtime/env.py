@@ -1,4 +1,5 @@
 from inkpy.util.event import Event
+from inkpy._runtime.value import ListValue
 
 
 class LexEnv:
@@ -30,7 +31,7 @@ class LexEnv:
 
     def __setglobal(self, var, val):
         oldval = self[var]
-        # TODO: list value retain origin
+        ListValue.retain_list_origins(oldval, val)
         self.__globals[var] = val
         if len(self.variableChanged) > 0 and val != oldval:
             if self.batchObserving:

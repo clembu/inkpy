@@ -104,6 +104,15 @@ class InkList:
             return
         raise TypeError
 
+    def items(self):
+        return self.__dict.items()
+
+    def values(self):
+        return self.__dict.values()
+
+    def keys(self):
+        return self.__dict.keys()
+
     # Specials
     def __len__(self):
         return len(self.__dict)
@@ -235,7 +244,7 @@ class InkList:
     # Class Methods
     @classmethod
     def from_single(cls, i):
-        if not isinstance(i, InkListItem): raise TypeError
+        if not isinstance(i, tuple): raise TypeError
         l = cls()
         l.__dict[i[0]] = i[1]
 
