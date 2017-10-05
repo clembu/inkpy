@@ -63,7 +63,6 @@ class InkList:
     @property
     def origin_of_max(self):
         if self.origins is None: return None
-
         max_org_name = self.max["item"].origin_name
         for org in self.origins:
             if org.name == max_org_name:
@@ -79,6 +78,20 @@ class InkList:
     def max(self):
         k, v = max(self.__dict, key=lambda k: k[1])
         return {"item": k, "value": v}
+
+    @property
+    def max_list(self):
+        if len(self) > 0:
+            return InkList.from_single(self.max)
+        else:
+            return InkList()
+
+    @property
+    def min_list(self):
+        if len(self) > 0:
+            return InkList.from_single(self.min)
+        else:
+            return InkList()
 
     @property
     def all(self):
