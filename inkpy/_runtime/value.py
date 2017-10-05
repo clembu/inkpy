@@ -1,7 +1,7 @@
 from enum import IntEnum
-from inkpy._runtime.path import Path
-from inkpy._runtime.inklist import InkList
-from inkpy._runtime.object import Object
+from .path import Path
+from .inklist import InkList
+from .object import Object
 
 
 class ValueType(IntEnum):

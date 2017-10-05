@@ -1,5 +1,5 @@
 from enum import Enum
-from inkpy._runtime.object import Object
+from .object import Object
 
 
 class CmdType(Enum):

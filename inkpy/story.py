@@ -1,13 +1,13 @@
 from io import IOBase
-import inkpy._runtime as runtime
-from inkpy.choice import Choice
+from ._runtime import Story as RStory, InkList as RInkList
+from .choice import Choice
 
 
 class Story:
 
     # Constructor
     def __init__(self, file_):
-        self.__s = runtime.Story(None, None)
+        self.__s = RStory(None, None)
         if isinstance(file_, str):
             pass
             # create from file path
@@ -90,4 +90,4 @@ class Story:
         self.__s.unbindfun(fname)
 
     def inklist(self, lname):
-        return runtime.InkList.from_story(self.__s)
+        return RInkList.from_story(self.__s)

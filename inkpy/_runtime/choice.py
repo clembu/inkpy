@@ -1,4 +1,4 @@
-from inkpy._runtime.object import Object
+from .object import Object
 
 
 class Choice(Object):

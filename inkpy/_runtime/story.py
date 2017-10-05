@@ -1,6 +1,6 @@
-from inkpy._runtime.state import State
-from inkpy._runtime.object import Object
-from inkpy._runtime.listdeforg import ListDefOrigin
+from .state import State
+from .object import Object
+from .listdeforg import ListDefOrigin
 
 
 class Story(Object):

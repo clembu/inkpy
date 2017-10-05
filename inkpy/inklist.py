@@ -1,11 +1,11 @@
-import inkpy._runtime as runtime
+from ._runtime import InkList as RInkList
 
 
 class InkList:
 
     # Constructor
-    def __init__(self, *, l=runtime.InkList()):
-        if not isinstance(l, runtime.InkList): raise TypeError
+    def __init__(self, *, l=RInkList()):
+        if not isinstance(l, RInkList): raise TypeError
         self._l = l
 
     # Properties

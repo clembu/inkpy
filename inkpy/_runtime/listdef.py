@@ -1,5 +1,5 @@
-from inkpy._runtime.inklist import InkList, InkListItem
-from inkpy._runtime.value import ListValue
+from .inklist import InkList, InkListItem
+from .value import ListValue
 
 
 class ListDef:

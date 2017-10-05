@@ -1,3 +1,3 @@
-from inkpy.story import Story
-from inkpy.inklist import InkList
-from inkpy.error import StoryError
+from .story import Story
+from .inklist import InkList
+from .error import StoryError

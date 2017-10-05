@@ -1,6 +1,6 @@
-from inkpy._runtime.object import Object
-from inkpy._runtime.container import Container
-from inkpy._runtime.path import Path
+from .object import Object
+from .container import Container
+from .path import Path
 
 
 class ChoicePoint(Object):

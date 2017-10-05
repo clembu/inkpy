@@ -1,5 +1,5 @@
-from inkpy._runtime.object import Object
-from inkpy._runtime.path import Path, Component
+from .object import Object
+from .path import Path, Component
 
 
 class Container(Object):

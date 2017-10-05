@@ -1,4 +1,4 @@
-from inkpy._runtime.env import LexEnv
+from .env import LexEnv
 
 
 class State:

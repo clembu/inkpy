@@ -1,8 +1,3 @@
-from inkpy._runtime.path import Component, Path
-from inkpy._runtime.container import Container
-from inkpy.debug import DebugMetadata
-
-
 class Object:
 
     # Constructor
@@ -118,3 +113,8 @@ class Object:
         return None
 
     # Special Methods
+
+
+from .path import Component, Path
+from .container import Container
+from ..debug import DebugMetadata

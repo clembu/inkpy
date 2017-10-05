@@ -1,5 +1,5 @@
-from inkpy.util.event import Event
-from inkpy._runtime.value import ListValue
+from ..util.event import Event
+from .value import ListValue
 
 
 class LexEnv:
