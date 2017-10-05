@@ -1,5 +1,5 @@
 from .value import ValueType, ListValue, IntValue, Value
-from .object import Object
+from .object import Object, Void
 from .inklist import InkList, InkListItem
 from enum import Enum
 
@@ -233,7 +233,7 @@ class Primitive(Object):
         if self.__proto: return self.__proto(params)
         hasls = False
         for p in params:
-            if isinstance(p, Void):  # TODO: Void
+            if isinstance(p, Void):
                 raise ValueError("Can't perform an operation on void.")
             if isinstance(p, ListValue): hasls = True
         if self.nargs == 2 and hasls: return self.call_binary_list_op(params)

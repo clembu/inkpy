@@ -115,6 +115,10 @@ class Object:
     # Special Methods
 
 
+class Void(Object):
+    pass
+
+
 from .path import Component, Path
 from .container import Container
 from ..debug import DebugMetadata
