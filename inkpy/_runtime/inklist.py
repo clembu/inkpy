@@ -45,7 +45,7 @@ class InkList:
         self.__origins = None
 
     # Properties
-    @properties
+    @property
     def origins(self):
         return self.__origins
 
@@ -125,6 +125,9 @@ class InkList:
 
     def keys(self):
         return self.__dict.keys()
+
+    def _add(self, item, value):
+        self.__dict[item] = value
 
     # Specials
     def __len__(self):
