@@ -61,3 +61,6 @@ class Story(Object):
 
     def unbindfun(self, fname):
         raise NotImplementedError
+
+    def content_at(self, path):
+        raise NotImplementedError

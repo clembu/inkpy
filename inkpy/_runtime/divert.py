@@ -1,6 +1,6 @@
 from .object import Object
 from .path import Path
-from .pushpop import PushPop
+from .callstack import StackType
 
 
 class Divert(Object):
@@ -80,7 +80,7 @@ class Divert(Object):
                 target_s = "line %d" % target_ln
             s.write("Divert")
             if self.pushes_to_stack:
-                if self.stack_type == PushPop.FUNCTION:
+                if self.stack_type == StackType.FUNCTION:
                     s.write(" function")
                 else:
                     s.write(" tunnel")
