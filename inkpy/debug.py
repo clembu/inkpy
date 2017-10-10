@@ -1,7 +1,7 @@
 class DebugMetadata:
     def __init__(self):
-        self.start_line_number = 0
-        self.end_line_number = 0
+        self.start_ln = 0
+        self.end_ln = 0
         self.file_name = None
         self.source_name = None
 
