@@ -19,7 +19,7 @@ class Story:
     # Properties
     @property
     def can_continue(self):
-        raise NotImplementedError
+        return self.__s.state.can_continue
 
     @property
     def choices(self):
@@ -27,11 +27,11 @@ class Story:
 
     @property
     def text(self):
-        raise NotImplementedError
+        return self.__s.state.text
 
     @property
     def tags(self):
-        raise NotImplementedError
+        return self.__s.state.tags
 
     @property
     def gtags(self):
@@ -43,11 +43,11 @@ class Story:
 
     @property
     def has_errors(self):
-        raise NotImplementedError
+        return self.__s.state.has_errors
 
     @property
     def errors(self):
-        raise NotImplementedError
+        return self.__s.state.current_errors
 
     # Methods
     def continue_(self, max_=False):
@@ -72,10 +72,7 @@ class Story:
         self.__s.reset()
 
     def force_end(self):
-        self.__s.force_end()
-
-    def visit_count(self, path):
-        raise NotImplementedError
+        self.__s.state.force_end()
 
     def watch(self, var, f):
         self.__s.watch(var, f)
