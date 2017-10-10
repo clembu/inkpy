@@ -349,7 +349,7 @@ class Story(Object):
         child = new
         anc = child.parent
         while isinstance(anc, Container) and anc not in self.__prev_cont_set:
-            at_start = len(anc.content) > 0 and child = anc.content[0]
+            at_start = len(anc.content) > 0 and child == anc.content[0]
             self.__visit(anc, at_start)
             child = anc
             anc = anc.parent

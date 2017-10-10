@@ -148,7 +148,7 @@ class CallStack:
         self.__thread_cnt = o["threadCounter"]
 
     def index(self, idx):
-        return next(t for t in self.__threads if t.idx == idx, None)
+        return next((t for t in self.__threads if t.idx == idx), None)
 
     def push_thread(self):
         nthr = self.current_thread.copy()
