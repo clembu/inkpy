@@ -5,6 +5,7 @@ from .path import Path
 
 class ChoicePoint(Object):
     def __init__(self, once=True):
+        super().__init__()
         self.__path_on_choice = None
         self.once_only = once
         self.has_condition = False
@@ -35,7 +36,7 @@ class ChoicePoint(Object):
 
     @path_str.setter
     def path_str(self, value):
-        self.path_on_choice = Path(value)
+        self.path_on_choice = Path.from_string(value)
 
     @property
     def flags(self):
@@ -49,6 +50,7 @@ class ChoicePoint(Object):
 
     @flags.setter
     def flags(self, value):
+        value = value.value
         self.has_condition = (value & 1) > 0
         self.has_start_content = (value & 2) > 0
         self.has_choice_only_content = (value & 4) > 0

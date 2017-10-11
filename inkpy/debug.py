@@ -3,7 +3,7 @@ class DebugMetadata:
         self.start_ln = 0
         self.end_ln = 0
         self.file_name = None
-        self.source_name = None
+        self.src_name = None
 
     def __str__(self):
         if self.file_name:

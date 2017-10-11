@@ -5,6 +5,7 @@ from .callstack import StackType
 
 class Divert(Object):
     def __init__(self, stack_type=None):
+        super().__init__()
         if stack_type is None:
             self.pushes_to_stack = False
         else:
@@ -16,7 +17,6 @@ class Divert(Object):
         self.variable_divert_name = None
         self.__target_ctnt = None
         self.__target_path = None
-        raise NotImplementedError
 
     @property
     def has_variable_target(self):
@@ -25,7 +25,7 @@ class Divert(Object):
     @property
     def target_content(self):
         if self.__target_ctnt is None:
-            self.__target_path = self.resolve_path(self.__target_path)
+            self.__target_ctnt = self.resolve_path(self.__target_path)
         return self.__target_ctnt
 
     @property
@@ -49,7 +49,7 @@ class Divert(Object):
     @target_path_str.setter
     def target_path_str(self, v):
         if v is None: self.target_path = None
-        else: self.target_path = Path(v)
+        else: self.target_path = Path.from_string(v)
 
     def __eq__(self, other):
         if not isinstance(other, Divert): return False
@@ -84,5 +84,5 @@ class Divert(Object):
                     s.write(" function")
                 else:
                     s.write(" tunnel")
-            s.write(" (%s)" % target_s)
+            s.write(" (%s)" % self.target_content)  #target_s)
             return s.getvalue()

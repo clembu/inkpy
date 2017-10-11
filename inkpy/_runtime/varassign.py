@@ -3,6 +3,7 @@ from .object import Object
 
 class VarAssign(Object):
     def __init__(self, name=None, new=False):
+        super().__init__()
         self.__varname = name
         self.__new = new
         self.is_global = False

@@ -10,6 +10,7 @@ class GlueType(Enum):
 
 class Glue(Object):
     def __init__(self, gtype):
+        super().__init__()
         self.glue_type = gtype
 
     @property

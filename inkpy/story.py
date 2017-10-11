@@ -1,20 +1,32 @@
 from io import IOBase
-from ._runtime import Story as RStory, InkList as RInkList
+from ._runtime import Story as RStory, InkList as RInkList, Path as RPath
 from .choice import Choice
+from .inklist import InkList
+from .js import dec
+import json
 
 
 class Story:
 
     # Constructor
     def __init__(self, file_):
-        self.__s = RStory(None, None)
         if isinstance(file_, str):
-            pass
+            closefile = True
+            file_ = open(file_, encoding='utf-8-sig')
             # create from file path
         elif isinstance(file_, IOBase):
             pass
             # create from readable stream
-        raise NotImplementedError
+        else:
+            raise TypeError(
+                "Cannot create story from {0} type".format(type(file_)))
+        jtree = json.load(
+            file_,
+            object_hook=dec.jobj_to_object,
+            parse_float=dec.decode_num,
+            parse_int=dec.decode_num)
+        if closefile: file_.close()
+        self.__s = RStory(jtree["root"], jtree.get("listDefs"))
 
     # Properties
     @property
@@ -38,16 +50,28 @@ class Story:
         return self.__s.gtags
 
     @property
-    def vars(self):
-        raise NotImplementedError
-
-    @property
     def has_errors(self):
         return self.__s.state.has_errors
 
     @property
     def errors(self):
         return self.__s.state.current_errors
+
+    # Specials
+    def __getitem__(self, vname):
+        v = self.__s.state.lexenv[vname]
+        if isinstance(v, RPath): v = str(v)
+        elif isinstance(v, RInkList): v = InkList(l=v)
+        return v
+
+    def __setitem__(self, vname, v):
+        if isinstance(v, InkList): v = v._l
+        if isinstance(v, str):
+            try:
+                v = RPath(v)
+            except:
+                pass
+        self.__s.state.lexenv[vname] = v
 
     # Methods
     def continue_(self, max_=False):

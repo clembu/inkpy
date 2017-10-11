@@ -15,6 +15,10 @@ class LexEnv:
     def variableChanged(self):
         return self.__varchanged
 
+    @variableChanged.setter
+    def variableChanged(self, v):
+        pass
+
     @property
     def batchObserving(self):
         return self.__batchObserving

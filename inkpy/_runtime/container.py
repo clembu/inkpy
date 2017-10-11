@@ -4,6 +4,7 @@ from .path import Path, Component
 
 class Container(Object):
     def __init__(self):
+        super().__init__()
         self.name = None
         self._content = []
         self.named_content = {}
@@ -24,8 +25,12 @@ class Container(Object):
     def named_only(self):
         named_only = self.named_content.copy()
         for c in self._content:
-            if hasattr(c, "name"):
+            try:
                 del named_only[c.name]
+            except AttributeError:
+                pass
+            except KeyError:
+                pass
         if len(named_only) == 0: named_only = None
         return named_only
 
@@ -59,6 +64,8 @@ class Container(Object):
         if c.parent:
             raise Exception("Content is already in %s" % c.parent)
         c.parent = self
+        print("Added `{0}` to {1}".format(c, c.parent))
+        input()
         self.__try_add_named(c)
 
     def __try_add_named(self, n):
@@ -114,3 +121,19 @@ class Container(Object):
         if isinstance(key, Component): return self.__content_from_comp(key)
         if isinstance(key, Path): return self.__content_at_path(key)
         raise TypeError
+
+    @property
+    def flags(self):
+        f = 0
+        if self.count_visits: f |= 1
+        if self.count_turns: f |= 2
+        if self.count_at_start: f |= 4
+        if f == 4: f = 0
+        return f
+
+    @flags.setter
+    def flags(self, v):
+        v = v.value
+        if v & 1 > 0: self.count_visits = True
+        if v & 2 > 0: self.count_turns = True
+        if v & 4 > 0: self.count_at_start = True

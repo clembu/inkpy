@@ -47,7 +47,7 @@ class Primitive(Object):
             cls.add_int_binary_op(cls.NAMES.ADD, int.__add__)
             cls.add_int_binary_op(cls.NAMES.SUBTRACT, int.__sub__)
             cls.add_int_binary_op(cls.NAMES.MULTIPLY, int.__mul__)
-            cls.add_int_binary_op(cls.NAMES.DIVIDE, int.__div__)
+            cls.add_int_binary_op(cls.NAMES.DIVIDE, int.__floordiv__)
             cls.add_int_binary_op(cls.NAMES.MOD, int.__mod__)
             cls.add_int_unary_op(cls.NAMES.NEGATE, int.__neg__)
 
@@ -61,7 +61,8 @@ class Primitive(Object):
             cls.add_int_binary_op(cls.NAMES.NOTEQUALS, iboolf(int.__ne__))
             cls.add_int_unary_op(cls.NAMES.NOT, iboolf(lambda x: x == 0))
 
-            cls.add_int_binary_op(cls.NAMES.AND, iboolf(x != 0 and y != 0))
+            cls.add_int_binary_op(cls.NAMES.AND,
+                                  iboolf(lambda x, y: x != 0 and y != 0))
             cls.add_int_binary_op(cls.NAMES.OR,
                                   iboolf(lambda x, y: x != 0 or y != 0))
 
@@ -72,7 +73,7 @@ class Primitive(Object):
             cls.add_float_binary_op(cls.NAMES.ADD, float.__add__)
             cls.add_float_binary_op(cls.NAMES.SUBTRACT, float.__sub__)
             cls.add_float_binary_op(cls.NAMES.MULTIPLY, float.__mul__)
-            cls.add_float_binary_op(cls.NAMES.DIVIDE, float.__div__)
+            cls.add_float_binary_op(cls.NAMES.DIVIDE, float.__truediv__)
             cls.add_float_binary_op(cls.NAMES.MOD, float.__mod__)
             cls.add_float_unary_op(cls.NAMES.NEGATE, float.__neg__)
 
@@ -95,10 +96,10 @@ class Primitive(Object):
             cls.add_float_binary_op(cls.NAMES.MIN, min)
 
             # String operations
-            cls.add_string_binary_op(cls.NAMES.ADD, str.__add__)
-            cls.add_string_binary_op(cls.NAMES.EQUAL, iboolf(str.__eq__))
-            cls.add_string_binary_op(cls.NAMES.NOTEQUALS, iboolf(str.__ne__))
-            cls.add_string_binary_op(cls.NAMES.HAS, iboolf(str.__contains__))
+            cls.add_str_binary_op(cls.NAMES.ADD, str.__add__)
+            cls.add_str_binary_op(cls.NAMES.EQUAL, iboolf(str.__eq__))
+            cls.add_str_binary_op(cls.NAMES.NOTEQUALS, iboolf(str.__ne__))
+            cls.add_str_binary_op(cls.NAMES.HAS, iboolf(str.__contains__))
 
             # List operations
             cls.add_list_binary_op(cls.NAMES.ADD, InkList.__or__)
@@ -137,11 +138,13 @@ class Primitive(Object):
                               iboolf(lambda d1, d2: d1 == d2))
 
     def __init__(self, name=None, *, nargs=-1):
+        super().__init__()
         if nargs >= 0:
             self._is_proto = True
             self.nargs = nargs
         else:
             self.generate_prims()
+        self._opfuns = None
         self.name = name
 
     @property
@@ -268,7 +271,8 @@ class Primitive(Object):
     def add_op_to_fun(cls, name, args, vtype, op):
         nf = cls._prims.get(name)
         if nf is None:
-            cls._prims[name] = Primitive(name, nargs=args)
+            nf = Primitive(name, nargs=args)
+            cls._prims[name] = nf
         nf.add_op_for_type(vtype, op)
 
     @classmethod

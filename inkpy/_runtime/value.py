@@ -15,6 +15,7 @@ class ValueType(IntEnum):
 
 class Value(Object):
     def __init__(self, value, *, vtype):
+        super().__init__()
         if not isinstance(vtype, type): raise TypeError
         self.__t = vtype
         self.__v = value

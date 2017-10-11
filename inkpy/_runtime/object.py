@@ -19,7 +19,7 @@ class Object:
         self.__dm = value
 
     @property
-    def rootContainer(self):
+    def root(self):
         ancestor = self
         while ancestor.parent:
             ancestor = ancestor.parent
@@ -34,20 +34,21 @@ class Object:
                 cmp = []
                 child = self
                 cnt = self.parent
-                while cnt:
+                while isinstance(cnt, Container):
                     try:
                         if child.has_valid_name:
                             cmp.append(Component(child.name))
-                            pass
                     except AttributeError:
-                        cmp.append(Path.Comp(cnt.content.index(child)))
-                        pass
+                        cmp.append(Component(cnt.content.index(child)))
+                    child = cnt
+                    cnt = cnt.parent
                 self._path = Path.from_comps(cmp)
         return self._path
 
     # Methods
 
     def resolve_path(self, path):
+        print("Resolving path: {0}".format(path))
         if path.is_relative:
             nrContainer = self
             if not isinstance(nrContainer, Container):
@@ -61,7 +62,7 @@ class Object:
                 path = path.tail
             return nrContainer[path]
         else:
-            return self.rootContainer[path]
+            return self.root[path]
 
     def make_path_relative(self, other_path):
         min_plen = min(len(self.path), len(other_path))
@@ -100,7 +101,7 @@ class Object:
     def debug_line_number_of_path(self, path):
         if self.path is None: return None
 
-        root = self.rootContainer
+        root = self.root
         if root:
             target = None
             try:
@@ -116,7 +117,8 @@ class Object:
 
 
 class Void(Object):
-    pass
+    def __init__(self):
+        super().__init__()
 
 
 from .path import Component, Path

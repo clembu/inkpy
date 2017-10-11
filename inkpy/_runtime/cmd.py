@@ -30,6 +30,7 @@ class CmdType(Enum):
 
 class Cmd(Object):
     def __init__(self, ctype=CmdType.NOT_SET):
+        super().__init__()
         self._ctype = ctype
 
     @property

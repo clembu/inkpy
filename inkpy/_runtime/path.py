@@ -20,7 +20,7 @@ class Component:
         return isinstance(self.__value, int)
 
     @property
-    def isParent(self):
+    def is_parent(self):
         return self.__value == parentstr
 
     @property
@@ -35,7 +35,8 @@ class Component:
     def to_parent(cls):
         return cls(parentstr)
 
-    __str__ = name
+    def __str__(self):
+        return self.name
 
     def __eq__(self, other):
         return isinstance(other, Component) and self.__value == other.__value
@@ -92,7 +93,7 @@ class Path(metaclass=MetaPath):
 
     @property
     def tail(self):
-        if len(self.__cmps > 1):
+        if len(self.__cmps) > 1:
             return Path.from_comps(self.__cmps[1:])
         else:
             return self.here
@@ -110,7 +111,8 @@ class Path(metaclass=MetaPath):
 
     @property
     def comp_str(self):
-        return ("." if self.is_relative else "") + ".".join(self.__cmps)
+        return ("."
+                if self.is_relative else "") + ".".join(map(str, self.__cmps))
 
     @comp_str.setter
     def comp_str(self, value):
@@ -149,7 +151,8 @@ class Path(metaclass=MetaPath):
         if self.is_relative != other.is_relative: return False
         return self.components == other.components
 
-    __str__ = comp_str
+    def __str__(self):
+        return self.comp_str
 
     def __hash__(self):
         return hash(str(self))

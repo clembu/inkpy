@@ -119,6 +119,10 @@ class State:
 
     @property
     def can_continue(self):
+        print("content: {0} ({1} errors)".format(self.current_content,
+                                                 len(self.current_errors)
+                                                 if self.has_errors else 0))
+        input()
         return self.current_content is not None and not self.has_errors
 
     @property
@@ -327,7 +331,7 @@ class State:
     # Public methods
 
     def go_to_start(self):
-        self.callstack.current_element.container = story.main
+        self.callstack.current_element.container = self.story.main
         self.callstack.current_element.content_idx = 0
 
     def copy(self):

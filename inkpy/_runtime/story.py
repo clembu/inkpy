@@ -23,6 +23,7 @@ class Story(Object):
 
     # Constructor
     def __init__(self, root_container, lists):
+        super().__init__()
         self.__state = None
         self.__list_defs = None if lists is None else ListDefOrigin(lists)
         self.__prev_cont_set = None
@@ -30,7 +31,7 @@ class Story(Object):
         self.__validated_exts = False
         self.__externals = {}
         self.__observers = {}
-        self.__main = None
+        self.__main = root_container
         self.allow_ext_func_fallbacks = False
         self.reset()
 
@@ -65,12 +66,14 @@ class Story(Object):
 
     def continue_(self, max_=False):
         if not self.__validated_exts:
+            print("validating externals")
             self.validate_exts()
         if max_:
             s = StringIO()
             while self.state.can_continue:
                 s.write(self.__continue())
             return s.getvalue()
+        print("continuing...")
         return self.__continue()
 
     def choose(self, idx):
@@ -240,6 +243,7 @@ class Story(Object):
         try:
             state_at_last_nl = None
             while True:  # Begin DO
+                print("stepping...")
                 self.__step()
                 if not self.state.can_continue:
                     self.__try_follow_default_choice()
@@ -411,7 +415,7 @@ class Story(Object):
             for c in o.named_content.values():
                 self.__validate(c, missing)
             return
-        if isinstance(o, Divert) and o.is_ext:
+        if isinstance(o, Divert) and o.is_external:
             n = o.target_path_str
             if n not in self.__externals:
                 if self.allow_ext_func_fallbacks:
@@ -599,7 +603,7 @@ class Story(Object):
         if o.pushes_to_stack:
             self.__state.callstack.callstack(o.stack_type)
         if self.__state.divert_target_obj is None and not o.is_external:
-            if o.debug_metadata.src_name is not None:
+            if o.debug_metadata is not None and o.debug_metadata.src_name is not None:
                 self.__error("Divert target doesn't exist: {0}".format(
                     o.debug_metadata.src_name))
             else:

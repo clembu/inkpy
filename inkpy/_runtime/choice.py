@@ -5,6 +5,7 @@ class Choice(Object):
 
     # Constructor
     def __init__(self, cp=None):
+        super().__init__()
         self.choicepoint = cp
         self.threadatgen = None
         self.org_thread_idx = 0
