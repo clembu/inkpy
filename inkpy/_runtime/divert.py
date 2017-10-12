@@ -32,7 +32,9 @@ class Divert(Object):
     def target_path(self):
         if self.__target_path is not None and self.__target_path.is_relative:
             o = self.target_content
-            if o is not None: self.__target_path = o.path
+            if o is not None:
+                self.__target_path = o.path
+                print("Target {0} ( {1} )".format(o, o.path))
         return self.__target_path
 
     @target_path.setter
@@ -75,6 +77,7 @@ class Divert(Object):
         else:
             s = StringIO()
             target_s = str(self.target_path)
+            print("Target is %s" % self.target_path)
             target_ln = self.debug_line_number_of_path(self.target_path)
             if target_ln:
                 target_s = "line %d" % target_ln
@@ -84,5 +87,5 @@ class Divert(Object):
                     s.write(" function")
                 else:
                     s.write(" tunnel")
-            s.write(" (%s)" % self.target_content)  #target_s)
+            s.write(" (%s)" % target_s)
             return s.getvalue()

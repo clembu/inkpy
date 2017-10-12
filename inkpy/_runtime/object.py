@@ -60,6 +60,7 @@ class Object:
                 if not path.components[0].is_parent:
                     raise Exception
                 path = path.tail
+                print("Resolved path: {0}".format(path))
             return nrContainer[path]
         else:
             return self.root[path]
